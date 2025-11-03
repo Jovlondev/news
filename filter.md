@@ -1,0 +1,32 @@
+| Lookup       | Description                                                                 | Usage Example                          |
+|--------------|-----------------------------------------------------------------------------|----------------------------------------|
+| exact       | Qiymatni aniq moslik uchun qidiradi (case-sensitive matnlar uchun).        | Q(field__exact='hello')               |
+| iexact      | Qiymatni aniq moslik uchun qidiradi, lekin case-insensitive.               | Q(field__iexact='hello')              |
+| contains    | Matnda berilgan qiymatni o'z ichiga olganini tekshiradi (case-sensitive).  | Q(field__contains='hell')             |
+| icontains   | Matnda berilgan qiymatni o'z ichiga olganini tekshiradi (case-insensitive).| Q(field__icontains='hell')            |
+| gt          | Qiymatdan katta bo'lganlarni qidiradi.                                     | Q(field__gt=10)                       |
+| gte         | Qiymatdan katta yoki teng bo'lganlarni qidiradi.                           | Q(field__gte=10)                      |
+| lt          | Qiymatdan kichik bo'lganlarni qidiradi.                                    | Q(field__lt=10)                       |
+| lte         | Qiymatdan kichik yoki teng bo'lganlarni qidiradi.                          | Q(field__lte=10)                      |
+| in          | Berilgan ro'yxatdagi qiymatlardan biriga mos kelganini qidiradi.           | Q(field__in=[1, 2, 3])                |
+| startswith  | Matn berilgan qiymat bilan boshlanishini tekshiradi (case-sensitive).      | Q(field__startswith='hell')           |
+| istartswith | Matn berilgan qiymat bilan boshlanishini tekshiradi (case-insensitive).    | Q(field__istartswith='hell')          |
+| endswith    | Matn berilgan qiymat bilan tugashini tekshiradi (case-sensitive).          | Q(field__endswith='lo')               |
+| iendswith   | Matn berilgan qiymat bilan tugashini tekshiradi (case-insensitive).        | Q(field__iendswith='lo')              |
+| range       | Qiymat ikkita chegaralar oralig'ida bo'lishini tekshiradi (sanalar yoki sonlar uchun). | Q(field__range=(start, end))         |
+| date        | Qiymatni sana tipiga aylantirib qidiradi.                                  | Q(field__date=datetime.date(2023,1,1))|
+| year        | Sana yilini qidiradi.                                                      | Q(field__year=2023)                   |
+| iso_year    | ISO 8601 standartidagi yilni qidiradi.                                     | Q(field__iso_year=2023)               |
+| month       | Sana oyini qidiradi (1-12).                                               | Q(field__month=1)                     |
+| day         | Sana kunini qidiradi (1-31).                                               | Q(field__day=1)                       |
+| week        | Sana haftasini qidiradi (1-53).                                            | Q(field__week=1)                      |
+| week_day    | Hafta kunini qidiradi (1-yakshanba, 7-shanba).                             | Q(field__week_day=1)                  |
+| iso_week_day| ISO hafta kunini qidiradi (1-duyshanba, 7-yakshanba).                      | Q(field__iso_week_day=1)              |
+| quarter     | Sana choragini qidiradi (1-4).                                             | Q(field__quarter=1)                   |
+| time        | Qiymatni vaqt tipiga aylantirib qidiradi.                                  | Q(field__time=datetime.time(12,0))    |
+| hour        | Soatni qidiradi (0-23).                                                    | Q(field__hour=12)                     |
+| minute      | Daqiqani qidiradi (0-59).                                                  | Q(field__minute=30)                   |
+| second      | Soniyani qidiradi (0-59).                                                  | Q(field__second=0)                    |
+| isnull      | Qiymat null bo'lishini tekshiradi (True/False).                            | Q(field__isnull=True)                 |
+| regex       | Matnni regex ifodasi bo'yicha qidiradi (case-sensitive).                   | Q(field__regex=r'^\d+')               |
+| iregex      | Matnni regex ifodasi bo'yicha qidiradi (case-insensitive).                 | Q(field__iregex=r'^\d+')
