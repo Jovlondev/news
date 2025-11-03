@@ -1,0 +1,38 @@
+{% block content %}
+	<div class="container wrapper">
+		<div class="longrek"></div>
+		<div class="clearfix"></div>
+		
+		<ol class="breadcrumb">
+			<li><a href="{% url 'home' %}">Bosh sahifa</a></li>
+			<li class="active">Page not found</li>
+		</ol>
+		<div class="row">
+            <section class="page_404">
+                <div class="container">
+                    <div class="row">
+                    <div class="col-sm-12 ">
+                    <div class="col-sm-10 col-sm-offset-1  text-center">
+                    <div class="four_zero_four_bg">
+                        <h1 class="text-center ">404</h1>
+
+
+                    </div>
+
+                    <div class="contant_box_404">
+                    <h3 class="h2">
+                        Ushbu sahifa mavjud emas
+                    </h3>
+
+                    <p>Ushbu sahifa haqida ma'lumotlar topilmadi</p>
+
+                    <a href="{% url 'home' %}" class="link_404">Bosh sahifa</a>
+                </div>
+                    </div>
+                    </div>
+                    </div>
+                </div>
+            </section>
+		</div>
+	</div>
+{% endblock %}

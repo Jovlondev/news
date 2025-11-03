@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} News|Category{% endblock %}
+
+{% block content %}
+	<div class="container wrapper">
+		<div class="longrek"></div>
+		<div class="clearfix"></div>
+		
+		<ol class="breadcrumb">
+			<li><a href="{% url 'home' %}">Bosh sahifa</a></li>
+			<li class="active">{{ one_ctg.name }}</li>
+		</ol>
+		<div class="row">
+			<div class="col-md-8 col-xs-12">
+				<div class="cat_title">{{ one_ctg.name }}</div>
+				<div class="big_fav pop_cat">
+
+				<div id="bigfav" class="carousel slide" data-ride="carousel">
+					<div class="carousel-inner" role="listbox">
+						<div class="item active">
+							<img src="{{ news.0.image1.url}}" alt="...">
+								<a href="#">
+									<div class="carousel-caption">
+										<div class="caption_pos">
+											<div class="type_news">{{ news.0.ctg.name}}</div>
+											<div class="title">{{ news.0.title }}</div>
+											<span class="date">{{ news.0.get_date }}</span>
+										</div>
+									</div>
+								</a>
+						</div>
+					</div>
+					<div class="control">
+
+					</div>
+				</div>
+			</div>
+				<div class="news_box">
+					{% if len > i %}
+					{% for i in news %}
+						 {% if forloop.counter > 1 %}
+					     <div class="cat_news"><div class="cat_img">
+							 <img src="{{ i.image1.url }}" alt=""></div>
+							 <a href="#">{{ i.title }}</a>
+							 <p>{{ i.short_desc }}</p>
+							 <span class="date">{{ i.date }}</span>
+							 <span class="news_type"><i class="fa fa-pencil"></i>{{ i.ctg.name }}</span>
+							 <span class="news_type"><i class="fa fa-eye"></i>{{ i.views }}</span>
+						 </div>
+						 {% endif %}
+					{% endfor %}
+					<nav aria-label="Page navigation">
+						<ul class="pagination">
+							{% if result.has_previous_page %}
+							<li>
+								<a href="#" aria-label="Previous">
+									<span aria-hidden="true">&laquo;</span>
+								</a>
+							</li>
+							{% endif %}
+							{% for i in paginator.page_range %}
+							<li><a href="#">{{ i }}</a></li>
+							{% endfor %}
+							<li>
+								<a href="#" aria-label="Next">
+									<span aria-hidden="true">&raquo;</span>
+								</a>
+							</li>
+						</ul>
+					</nav>
+					{% endif %}
+				</div>
+			</div>
+			<div class="col-md-4 col-xs-12">
+				{% include 'partials/svejiy.html'%}
+				
+				<div class="news_box rek">
+					<div class="rek_right">
+						
+					</div>
+				</div>
+				<div class="subscribe">
+					<div class="title">Sytimizga: <b>1news.uz</b></div>
+					<form action="{% url 'subs_add' path='ctg' %}" method="post">
+						{% csrf_token %}
+						<div class="input-group">
+							<input type="text" name="email" placeholder="Email" required>
+							<button class="submit">Obuna bo'lish</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

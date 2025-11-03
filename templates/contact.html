@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} News|Contact{% endblock %}
+
+{% block content %}
+	<div class="container wrapper">
+		<div class="longrek"></div>
+		<div class="clearfix"></div>
+		
+		<ol class="breadcrumb">
+			<li><a href="#">Главная</a></li>
+			<li class="active">Контакты</li>
+		</ol>
+		<div class="row">
+			<div class="col-md-5 col-xs-12">
+				<div class="cat_title">Bog'lanish</div>
+				<div class="con_info">Eng yaxshi yangliklar 1.news saytda ko'rsangiz bo'ladi.lorem*20</div>
+				<ul class="contact">
+					<li><i class="fa fa-map-marker"></i> г. Ташкент, улица Эркинлик, дом 108</li>
+					<li><i class="fa fa-print"></i> (99)-492-05-35 (<a href="https://t.me/jovlondev">jovlondev@gmail.com</a>)</li>
+					<li><i class="fa fa-mobile"></i> (99)-492-04-35</li>
+					<li><i class="fa fa-envelope"></i> jovlondev@gmail.com 1.news</li>
+				</ul>
+				<div class="feedback">
+					<div class="title">Tezkor aloqa</div>
+					<h3 style="color: green;"> {{ success }} </h3>
+					<form method="post">
+						{% csrf_token %}
+						<input type="text" name="ism" placeholder="Ismingiz">
+						<input type="text" name="phone" placeholder="Telefon Raqam">
+						<textarea name="" id="" cols="30" rows="10" placeholder="Xabar"></textarea>
+						<button type="submit" class="btn submit">Yuborish</button>
+					</form>
+				</div>
+			</div>
+			<div class="col-md-7 col-xs-12">
+				<div class="con_img">
+					<img src="img/contact.jpg" alt="">
+				</div>
+				<div class="map"></div>
+			</div>
+		</div>
+		<div class="foot_rek">
+			<img src="img/foootrek.jpg" alt="">
+		</div>
+	</div>
+{% endblock %}
