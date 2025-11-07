@@ -15,5 +15,7 @@ urlpatterns = [
 
     # login + register
     path('auth/',auth,name='auth'),
+    # path('logout/',auth,name='logout')
+
 
 ]

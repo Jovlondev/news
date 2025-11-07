@@ -19,8 +19,7 @@
 				{% if request.user.is_anonymous %}
 					<li><a href="{% url 'auth' %}"><i class="fa-solid fa-right-to-bracket"></i> Sign Up</a></li>
 				{% else %}
-				<li><a href="">Logout</a></li>
-				<li><a href="">Logout</a></li>
+				<li><a href="{%url 'logout'%}">Logout</a></li>
 				{% endif %}
 			</ul>
 			<ul class="social">

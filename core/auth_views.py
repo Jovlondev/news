@@ -1,9 +1,9 @@
 import random
-
+import uuid
 from django.conf import settings
 from django.shortcuts import render , redirect
-from core.models import User
-from methodism import code_decoder
+from core.models import User,Otp
+from methodism import code_decoder,generate_key
 import requests
 
 def send_sms(code):
@@ -39,24 +39,24 @@ def auth(request):
                 return render(request,"auth/login.html", {"error":"Phone Yoki Parol Xato"})
             #OTP yharatishimiz kerak
 
-            # login qilish kerak
-            else:
-                phone = data.get("regis_phone", None)
+        # login qilish kerak
+        else:
+            phone = data.get("regis_phone", None)
 
 
-            code = random.randint(100_000, 999_999)
-            send_sms(code)
-            message = f"Sizning OTP kodingiz: {code}"
-            url = f'https://api.telegram.org/bot{settings.TG_TOKEN}/sendMessage?chat_id={7509489027}&text={message}&parse_mode=HTML'
-            requests.get(url)
-            unical = uuid.uuid4()
-            gen_code = generate_key(15)
+        code = random.randint(100_000, 999_999)
+        send_sms(code)
+        message = f"Sizning OTP kodingiz: {code}"
+        url = f'https://api.telegram.org/bot{settings.TG_TOKEN}/sendMessage?chat_id={7509489027}&text={message}&parse_mode=HTML'
+        requests.get(url)
+        unical = uuid.uuid4()
+        gen_code = generate_key(15)
 
-            natija = f"{unical}${code}${gen_code}"
-            shifr = code_decoder(natija, l=2)
-            otp = Otp.objects.create(mobile=phone,key=shifr)
-            request.session['key'] = otp.key
-            return redirect(otp)
+        natija = f"{unical}${code}${gen_code}"
+        shifr = code_decoder(natija, l=2)
+        otp = Otp.objects.create(mobile=phone,key=shifr)
+        request.session['key'] = otp.key
+        return redirect("otp")
 
     ctx = {
 
