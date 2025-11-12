@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import *
-from .auth_views import auth
+from .auth_views import auth, otp ,logout
 
 
 
@@ -15,7 +15,8 @@ urlpatterns = [
 
     # login + register
     path('auth/',auth,name='auth'),
-    # path('logout/',auth,name='logout')
+    path('otp/',otp,name='otp'),
+    path('logout/',logout,name='logout')
 
 
 ]

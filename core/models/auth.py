@@ -4,6 +4,7 @@ from django.contrib.auth.models import UserManager, AbstractBaseUser, Permission
 from django.db import models
 from methodism.models import Otp
 
+
 class CustomUserManager(UserManager):
     def create_user(self, phone, password=None, **extra_fields):
         user = self.model(
@@ -55,6 +56,7 @@ class Otp(models.Model):
 
 
     def check_date(self):
+        import datetime
         now = datetime.datetime.now()
         if(now-self.created).total_seconds() > 3*60:
             return False

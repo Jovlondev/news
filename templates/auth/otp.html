@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OTP|Tasdiqlash</title>
+  <link rel="stylesheet" href="{% static 'auth/style.css' %}">
+  <style>
+    .otp-container {
+      max-width: 400px;
+      margin: 50px auto;
+      padding: 30px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .otp-title {
+      margin-bottom: 20px;
+      color: #333;
+      font-size: 20px;
+    }
+    .otp-subtitle {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 25px;
+    }
+    .otp-inputs {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 25px;
+    }
+    .otp-input {
+      width: 50px;
+      height: 50px;
+      text-align: center;
+      font-size: 20px;
+      font-weight: bold;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      transition: all 0.2s;
+      outline: none;
+    }
+    .otp-input:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 0 3px rgba(0,123,255,0.25);
+    }
+    .action-button {
+      margin-top: 10px;
+    }
+    .action-button button {
+      width: 100%;
+      padding: 12px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .action-button button:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+    .resend-link {
+      margin-top: 15px;
+      font-size: 14px;
+    }
+    .resend-link a {
+      color: #007bff;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+<section>
+  <div class="main-form-container">
+    <div id="form_section" class="form-container">
+      <div class="otp-container">
+        <div class="otp-title">
+          <h2>OTP kodi</h2>
+          <p class="otp-subtitle">
+            {{ phone }} raqamiga yuborilgan 6 raqamli kodni kiriting
+          </p>
+          <h3 style="color: red; font-size: 14px;">{{ error }}</h3>
+        </div>
+
+        <form method="post" class="otp-form">
+          {% csrf_token %}
+          <div class="otp-inputs">
+            <input type="text" class="otp-input" name="otp1" maxlength="1" inputmode="numeric" required />
+            <input type="text" class="otp-input" name="otp2" maxlength="1" inputmode="numeric" required />
+            <input type="text" class="otp-input" name="otp3" maxlength="1" inputmode="numeric" required />
+            <input type="text" class="otp-input" name="otp4" maxlength="1" inputmode="numeric" required />
+            <input type="text" class="otp-input" name="otp5" maxlength="1" inputmode="numeric" required />
+            <input type="text" class="otp-input" name="otp6" maxlength="1" inputmode="numeric" required />
+          </div>
+
+          <div class="action-button">
+            <button type="submit" id="verifyBtn" disabled>Tasdiqlash</button>
+          </div>
+        </form>
+
+        <div class="resend-link">
+          Kod kelmadi mi? <a href="">Qayta yuborish</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const inputs = document.querySelectorAll('.otp-input');
+  const verifyBtn = document.getElementById('verifyBtn');
+
+  inputs.forEach((input, index) => {
+    input.addEventListener('input', (e) => {
+      let value = e.target.value;
+      // Faqat raqam
+      if (!/^\d*$/.test(value)) {
+        e.target.value = '';
+        return;
+      }
+
+      // Keyingi inputga o'tish
+      if (value.length === 1 && index < inputs.length - 1) {
+        inputs[index + 1].focus();
+      }
+
+      // Backspace bilan oldingiga qaytish
+      if (value === '' && index > 0 && e.inputType === 'deleteContentBackward') {
+        inputs[index - 1].focus();
+      }
+
+      checkAllFilled();
+    });
+
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Backspace' && !input.value && index > 0) {
+        inputs[index - 1].focus();
+      }
+    });
+
+    // Paste qo'llab-quvvatlash
+    input.addEventListener('paste', (e) => {
+      const paste = (e.clipboardData || window.clipboardData).getData('text');
+      const digits = paste.match(/\d/g);
+      if (digits && digits.length >= 6) {
+        digits.slice(0, 6).forEach((d, i) => {
+          if (inputs[i]) inputs[i].value = d;
+        });
+        inputs[5].focus();
+        checkAllFilled();
+      }
+      e.preventDefault();
+    });
+  });
+
+  function checkAllFilled() {
+    const allFilled = Array.from(inputs).every(inp => inp.value.trim() !== '');
+    verifyBtn.disabled = !allFilled;
+    verifyBtn.style.background = allFilled ? '#28a745' : '#007bff';
+  }
+
+  // Avvalgi holatni saqlash (sahifa qayta yuklansa ham)
+  window.addEventListener('load', () => {
+    checkAllFilled();
+  });
+</script>
+
+</body>
+</html>
